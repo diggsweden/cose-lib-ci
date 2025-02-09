@@ -82,7 +82,7 @@ public class MACCOSEObject extends MacCommon {
 
     CBORObject obj = CBORObject.NewArray();
     if (objProtected.size() > 0) obj.Add(objProtected.EncodeToBytes());
-    else obj.Add(CBORObject.FromObject(new byte[0]));
+    else obj.Add(CBORObject.FromByteArray(new byte[0]));
 
     obj.Add(objUnprotected);
     obj.Add(rgbContent);
@@ -100,18 +100,25 @@ public class MACCOSEObject extends MacCommon {
   public boolean Validate(Recipient recipientToUse)
     throws CoseException, Exception {
     byte[] rgbKey = null;
-    int cbitKey = 0;
     AlgorithmID alg = AlgorithmID.FromCBOR(findAttribute(HeaderKeys.Algorithm));
 
     for (Recipient recipient : recipientList) {
       if (recipientToUse == null) {
         try {
           rgbKey = recipient.decrypt(alg, recipientToUse);
-        } catch (CoseException e) {}
+        } catch (CoseException e) {
+          System.out.println(
+            "This exception should likely be logged or handled "
+          );
+        }
       } else if (recipientToUse == recipient) {
         try {
           rgbKey = recipient.decrypt(alg, recipientToUse);
-        } catch (CoseException e) {}
+        } catch (CoseException e) {
+          System.out.println(
+            "This exception should likely be logged or handled "
+          );
+        }
         if (rgbKey == null) break;
       }
 

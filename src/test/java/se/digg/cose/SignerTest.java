@@ -5,20 +5,17 @@
 
 package se.digg.cose;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import com.upokecenter.cbor.CBORObject;
-import org.junit.*;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import se.digg.cose.COSEKey;
-import se.digg.cose.CoseException;
-import se.digg.cose.Signer;
 
 /**
  *
@@ -97,7 +94,7 @@ public class SignerTest extends TestBase {
   @Test
   public void signerDecodeBadProtected2() throws CoseException {
     CBORObject obj = CBORObject.NewArray();
-    obj.Add(CBORObject.FromObject(CBORObject.False));
+    obj.Add(CBORObject.False);
     obj.Add(CBORObject.False);
     obj.Add(CBORObject.False);
 
@@ -111,7 +108,7 @@ public class SignerTest extends TestBase {
   @Test
   public void signerDecodeBadUnprotected() throws CoseException {
     CBORObject obj = CBORObject.NewArray();
-    obj.Add(CBORObject.FromObject(CBORObject.NewArray()).EncodeToBytes());
+    obj.Add(CBORObject.NewArray()).EncodeToBytes();
     obj.Add(CBORObject.False);
     obj.Add(CBORObject.False);
 
@@ -125,7 +122,7 @@ public class SignerTest extends TestBase {
   @Test
   public void signerDecodeBadSignature() throws CoseException {
     CBORObject obj = CBORObject.NewArray();
-    obj.Add(CBORObject.FromObject(CBORObject.NewArray()).EncodeToBytes());
+    obj.Add(CBORObject.NewArray()).EncodeToBytes();
     obj.Add(CBORObject.NewMap());
     obj.Add(CBORObject.False);
 

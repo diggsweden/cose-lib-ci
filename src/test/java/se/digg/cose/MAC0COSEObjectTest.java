@@ -5,19 +5,14 @@
 
 package se.digg.cose;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import com.upokecenter.cbor.CBORObject;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import se.digg.cose.AlgorithmID;
-import se.digg.cose.Attribute;
-import se.digg.cose.COSEObject;
-import se.digg.cose.COSEObjectTag;
-import se.digg.cose.CoseException;
-import se.digg.cose.HeaderKeys;
-import se.digg.cose.KeyKeys;
-import se.digg.cose.MAC0COSEObject;
 
 /**
  *
@@ -111,7 +106,7 @@ public class MAC0COSEObjectTest extends TestBase {
   public void setUp() {
     cnKey256 = CBORObject.NewMap();
     cnKey256.Add(KeyKeys.KeyType.AsCBOR(), KeyKeys.KeyType_Octet);
-    cnKey256.Add(KeyKeys.Octet_K.AsCBOR(), CBORObject.FromObject(rgbKey256));
+    cnKey256.Add(KeyKeys.Octet_K.AsCBOR(), CBORObject.FromByteArray(rgbKey256));
   }
 
   @After
@@ -161,7 +156,7 @@ public class MAC0COSEObjectTest extends TestBase {
     thrown.expectMessage("Unknown Algorithm Specified");
     msg.addAttribute(
       HeaderKeys.Algorithm,
-      CBORObject.FromObject("Unknown"),
+      CBORObject.FromString("Unknown"),
       Attribute.PROTECTED
     );
     msg.SetContent(rgbContent);
@@ -205,7 +200,7 @@ public class MAC0COSEObjectTest extends TestBase {
     thrown.expectMessage("COSEObject is not a COSE security COSEObject");
 
     byte[] rgb = obj.EncodeToBytes();
-    COSEObject msg = COSEObject.DecodeFromBytes(rgb, COSEObjectTag.MAC0);
+    COSEObject.DecodeFromBytes(rgb, COSEObjectTag.MAC0);
   }
 
   @Test
@@ -217,7 +212,7 @@ public class MAC0COSEObjectTest extends TestBase {
     thrown.expectMessage("Invalid MAC0 structure");
 
     byte[] rgb = obj.EncodeToBytes();
-    COSEObject msg = COSEObject.DecodeFromBytes(rgb, COSEObjectTag.MAC0);
+    COSEObject.DecodeFromBytes(rgb, COSEObjectTag.MAC0);
   }
 
   @Test
@@ -232,13 +227,13 @@ public class MAC0COSEObjectTest extends TestBase {
     thrown.expectMessage("Invalid MAC0 structure");
 
     byte[] rgb = obj.EncodeToBytes();
-    COSEObject msg = COSEObject.DecodeFromBytes(rgb, COSEObjectTag.MAC0);
+    COSEObject.DecodeFromBytes(rgb, COSEObjectTag.MAC0);
   }
 
   @Test
   public void macDecodeBadProtected2() throws CoseException {
     CBORObject obj = CBORObject.NewArray();
-    obj.Add(CBORObject.FromObject(CBORObject.False));
+    obj.Add(CBORObject.False);
     obj.Add(CBORObject.False);
     obj.Add(CBORObject.False);
     obj.Add(CBORObject.False);
@@ -247,13 +242,13 @@ public class MAC0COSEObjectTest extends TestBase {
     thrown.expectMessage("Invalid MAC0 structure");
 
     byte[] rgb = obj.EncodeToBytes();
-    COSEObject msg = COSEObject.DecodeFromBytes(rgb, COSEObjectTag.MAC0);
+    COSEObject.DecodeFromBytes(rgb, COSEObjectTag.MAC0);
   }
 
   @Test
   public void macDecodeBadUnprotected() throws CoseException {
     CBORObject obj = CBORObject.NewArray();
-    obj.Add(CBORObject.FromObject(CBORObject.NewArray()).EncodeToBytes());
+    obj.Add(CBORObject.NewArray()).EncodeToBytes();
     obj.Add(CBORObject.False);
     obj.Add(CBORObject.False);
     obj.Add(CBORObject.False);
@@ -262,13 +257,13 @@ public class MAC0COSEObjectTest extends TestBase {
     thrown.expectMessage("Invalid MAC0 structure");
 
     byte[] rgb = obj.EncodeToBytes();
-    COSEObject msg = COSEObject.DecodeFromBytes(rgb, COSEObjectTag.MAC0);
+    COSEObject.DecodeFromBytes(rgb, COSEObjectTag.MAC0);
   }
 
   @Test
   public void macDecodeBadContent() throws CoseException {
     CBORObject obj = CBORObject.NewArray();
-    obj.Add(CBORObject.FromObject(CBORObject.NewArray()).EncodeToBytes());
+    obj.Add(CBORObject.NewArray()).EncodeToBytes();
     obj.Add(CBORObject.NewMap());
     obj.Add(CBORObject.False);
     obj.Add(CBORObject.False);
@@ -277,13 +272,13 @@ public class MAC0COSEObjectTest extends TestBase {
     thrown.expectMessage("Invalid MAC0 structure");
 
     byte[] rgb = obj.EncodeToBytes();
-    COSEObject msg = COSEObject.DecodeFromBytes(rgb, COSEObjectTag.MAC0);
+    COSEObject.DecodeFromBytes(rgb, COSEObjectTag.MAC0);
   }
 
   @Test
   public void macDecodeBadRecipients() throws CoseException {
     CBORObject obj = CBORObject.NewArray();
-    obj.Add(CBORObject.FromObject(CBORObject.NewArray()).EncodeToBytes());
+    obj.Add(CBORObject.NewArray()).EncodeToBytes();
     obj.Add(CBORObject.NewMap());
     obj.Add(new byte[0]);
     obj.Add(CBORObject.False);
@@ -292,6 +287,6 @@ public class MAC0COSEObjectTest extends TestBase {
     thrown.expectMessage("Invalid MAC0 structure");
 
     byte[] rgb = obj.EncodeToBytes();
-    COSEObject msg = COSEObject.DecodeFromBytes(rgb, COSEObjectTag.MAC0);
+    COSEObject.DecodeFromBytes(rgb, COSEObjectTag.MAC0);
   }
 }

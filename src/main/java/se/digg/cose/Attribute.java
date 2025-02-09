@@ -5,7 +5,8 @@
 
 package se.digg.cose;
 
-import com.upokecenter.cbor.*;
+import com.upokecenter.cbor.CBORObject;
+import com.upokecenter.cbor.CBORType;
 
 /**
  * Internal class which supports the protected and unprotected attribute maps that
@@ -168,7 +169,7 @@ public class Attribute {
    */
   public void addAttribute(HeaderKeys label, byte[] value, int where)
     throws CoseException {
-    addAttribute(label.AsCBOR(), CBORObject.FromObject(value), where);
+    addAttribute(label.AsCBOR(), CBORObject.FromByteArray(value), where);
   }
 
   /**

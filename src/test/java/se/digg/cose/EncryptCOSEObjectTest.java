@@ -5,23 +5,16 @@
 
 package se.digg.cose;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
-import com.upokecenter.cbor.*;
+import com.upokecenter.cbor.CBORObject;
 import java.util.List;
 import org.bouncycastle.crypto.InvalidCipherTextException;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import se.digg.cose.AlgorithmID;
-import se.digg.cose.Attribute;
-import se.digg.cose.COSEKey;
-import se.digg.cose.COSEObject;
-import se.digg.cose.COSEObjectTag;
-import se.digg.cose.CoseException;
-import se.digg.cose.EncryptCOSEObject;
-import se.digg.cose.HeaderKeys;
-import se.digg.cose.KeyKeys;
-import se.digg.cose.Recipient;
 
 /**
  *
@@ -139,7 +132,7 @@ public class EncryptCOSEObjectTest extends TestBase {
     );
     CBORObject key128 = CBORObject.NewMap();
     key128.Add(KeyKeys.KeyType.AsCBOR(), KeyKeys.KeyType_Octet);
-    key128.Add(KeyKeys.Octet_K.AsCBOR(), CBORObject.FromObject(rgbKey128));
+    key128.Add(KeyKeys.Octet_K.AsCBOR(), CBORObject.FromByteArray(rgbKey128));
     cnKey128 = new COSEKey(key128);
     recipient128.SetKey(cnKey128);
   }
@@ -158,7 +151,7 @@ public class EncryptCOSEObjectTest extends TestBase {
     );
     msg.addAttribute(
       HeaderKeys.IV,
-      CBORObject.FromObject(rgbIV96),
+      CBORObject.FromByteArray(rgbIV96),
       Attribute.PROTECTED
     );
     msg.SetContent(rgbContent);
@@ -230,7 +223,7 @@ public class EncryptCOSEObjectTest extends TestBase {
     thrown.expectMessage("Unknown Algorithm Specified");
     msg.addAttribute(
       HeaderKeys.Algorithm,
-      CBORObject.FromObject("Unknown"),
+      CBORObject.FromString("Unknown"),
       Attribute.PROTECTED
     );
     msg.SetContent(rgbContent);
@@ -285,7 +278,7 @@ public class EncryptCOSEObjectTest extends TestBase {
     );
     msg.addAttribute(
       HeaderKeys.IV,
-      CBORObject.FromObject("IV"),
+      CBORObject.FromString("IV"),
       Attribute.UNPROTECTED
     );
     msg.SetContent(rgbContent);
@@ -318,7 +311,7 @@ public class EncryptCOSEObjectTest extends TestBase {
     thrown.expectMessage("COSEObject is not a COSE security COSEObject");
 
     byte[] rgb = obj.EncodeToBytes();
-    COSEObject msg = COSEObject.DecodeFromBytes(rgb, COSEObjectTag.Encrypt);
+    COSEObject.DecodeFromBytes(rgb, COSEObjectTag.Encrypt);
   }
 
   @Test
@@ -330,7 +323,7 @@ public class EncryptCOSEObjectTest extends TestBase {
     thrown.expectMessage("Invalid Encrypt structure");
 
     byte[] rgb = obj.EncodeToBytes();
-    COSEObject msg = COSEObject.DecodeFromBytes(rgb, COSEObjectTag.Encrypt);
+    COSEObject.DecodeFromBytes(rgb, COSEObjectTag.Encrypt);
   }
 
   @Test
@@ -345,13 +338,13 @@ public class EncryptCOSEObjectTest extends TestBase {
     thrown.expectMessage("Invalid Encrypt structure");
 
     byte[] rgb = obj.EncodeToBytes();
-    COSEObject msg = COSEObject.DecodeFromBytes(rgb, COSEObjectTag.Encrypt);
+    COSEObject.DecodeFromBytes(rgb, COSEObjectTag.Encrypt);
   }
 
   @Test
   public void encryptDecodeBadProtected2() throws CoseException {
     CBORObject obj = CBORObject.NewArray();
-    obj.Add(CBORObject.FromObject(CBORObject.False));
+    obj.Add(CBORObject.False);
     obj.Add(CBORObject.False);
     obj.Add(CBORObject.False);
     obj.Add(CBORObject.False);
@@ -360,13 +353,13 @@ public class EncryptCOSEObjectTest extends TestBase {
     thrown.expectMessage("Invalid Encrypt structure");
 
     byte[] rgb = obj.EncodeToBytes();
-    COSEObject msg = COSEObject.DecodeFromBytes(rgb, COSEObjectTag.Encrypt);
+    COSEObject.DecodeFromBytes(rgb, COSEObjectTag.Encrypt);
   }
 
   @Test
   public void encryptDecodeBadUnprotected() throws CoseException {
     CBORObject obj = CBORObject.NewArray();
-    obj.Add(CBORObject.FromObject(CBORObject.NewArray()).EncodeToBytes());
+    obj.Add(CBORObject.NewArray()).EncodeToBytes();
     obj.Add(CBORObject.False);
     obj.Add(CBORObject.False);
     obj.Add(CBORObject.False);
@@ -375,13 +368,13 @@ public class EncryptCOSEObjectTest extends TestBase {
     thrown.expectMessage("Invalid Encrypt structure");
 
     byte[] rgb = obj.EncodeToBytes();
-    COSEObject msg = COSEObject.DecodeFromBytes(rgb, COSEObjectTag.Encrypt);
+    COSEObject.DecodeFromBytes(rgb, COSEObjectTag.Encrypt);
   }
 
   @Test
   public void encryptDecodeBadContent() throws CoseException {
     CBORObject obj = CBORObject.NewArray();
-    obj.Add(CBORObject.FromObject(CBORObject.NewArray()).EncodeToBytes());
+    obj.Add(CBORObject.NewArray()).EncodeToBytes();
     obj.Add(CBORObject.NewMap());
     obj.Add(CBORObject.False);
     obj.Add(CBORObject.False);
@@ -390,13 +383,13 @@ public class EncryptCOSEObjectTest extends TestBase {
     thrown.expectMessage("Invalid Encrypt structure");
 
     byte[] rgb = obj.EncodeToBytes();
-    COSEObject msg = COSEObject.DecodeFromBytes(rgb, COSEObjectTag.Encrypt);
+    COSEObject.DecodeFromBytes(rgb, COSEObjectTag.Encrypt);
   }
 
   @Test
   public void encryptDecodeBadRecipients() throws CoseException {
     CBORObject obj = CBORObject.NewArray();
-    obj.Add(CBORObject.FromObject(CBORObject.NewArray()).EncodeToBytes());
+    obj.Add(CBORObject.NewArray()).EncodeToBytes();
     obj.Add(CBORObject.NewMap());
     obj.Add(new byte[0]);
     obj.Add(CBORObject.False);
@@ -405,6 +398,6 @@ public class EncryptCOSEObjectTest extends TestBase {
     thrown.expectMessage("Invalid Encrypt structure");
 
     byte[] rgb = obj.EncodeToBytes();
-    COSEObject msg = COSEObject.DecodeFromBytes(rgb, COSEObjectTag.Encrypt);
+    COSEObject.DecodeFromBytes(rgb, COSEObjectTag.Encrypt);
   }
 }

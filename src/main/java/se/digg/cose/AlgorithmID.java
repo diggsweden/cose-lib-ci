@@ -65,14 +65,14 @@ public enum AlgorithmID {
   private final int cbitTag;
 
   AlgorithmID(int value, int cbitKey, int cbitTag) {
-    this.value = CBORObject.FromObject(value);
+    this.value = CBORObject.FromInt32(value);
     this.cbitKey = cbitKey;
     this.cbitTag = cbitTag;
   }
 
   public static AlgorithmID FromCBOR(CBORObject obj) throws CoseException {
     if (obj == null) throw new CoseException("No Algorithm Specified");
-    for (AlgorithmID alg : AlgorithmID.values()) {
+    for (AlgorithmID alg : values()) {
       if (obj.equals(alg.value)) return alg;
     }
     throw new CoseException("Unknown Algorithm Specified");
