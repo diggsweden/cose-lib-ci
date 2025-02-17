@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2016-2024 COSE-JAVA
-// SPDX-FileCopyrightText: 2025 IDsec Solutions AB
+// SPDX-FileCopyrightText: 2025 diggsweden/cose-lib
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
@@ -8,7 +8,7 @@ package se.digg.cose;
 import java.security.Provider;
 
 /**
- * Specify which JCA Provider to use for signing and verifying messages
+ * Specify which JCA Provider to use for signing and verifying messages.
  */
 public class CryptoContext {
 

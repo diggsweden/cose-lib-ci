@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2016-2024 COSE-JAVA
-// SPDX-FileCopyrightText: 2025 IDsec Solutions AB
+// SPDX-FileCopyrightText: 2025 diggsweden/cose-lib
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
@@ -26,7 +26,9 @@ public enum COSEObjectTag {
 
   public static COSEObjectTag FromInt(int i) throws CoseException {
     for (COSEObjectTag m : values()) {
-      if (i == m.value) return m;
+      if (i == m.value) {
+        return m;
+      }
     }
     throw new CoseException("Not a COSEObject tag number");
   }

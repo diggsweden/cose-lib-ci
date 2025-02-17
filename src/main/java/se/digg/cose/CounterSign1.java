@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: 2016-2024 COSE-JAVA
-// SPDX-FileCopyrightText: 2025 IDsec Solutions AB
+// SPDX-FileCopyrightText: 2025 diggsweden/cose-lib
 //
 // SPDX-License-Identifier: BSD-3-Clause
 
@@ -46,13 +46,10 @@ public class CounterSign1 extends Signer {
   }
 
   public CBORObject EncodeToCBORObject() throws CoseException {
-    if (
-      !objProtected.getValues().isEmpty() ||
-      !objUnprotected.getValues().isEmpty()
-    ) {
+    if (!objProtected.getValues().isEmpty()
+        || !objUnprotected.getValues().isEmpty()) {
       throw new CoseException(
-        "CounterSign1 object cannot have protected or unprotected attributes"
-      );
+          "CounterSign1 object cannot have protected or unprotected attributes");
     }
 
     return CBORObject.FromByteArray(rgbSignature);
