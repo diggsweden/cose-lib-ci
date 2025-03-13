@@ -28,14 +28,6 @@
       "dependencies"
     ]
   },
-  "hostRules": [
-    {
-      "hostType": "maven",
-      "matchHost": "https://repo.maven.apache.org/maven2/",
-      "concurrentRequestLimit": 1,
-      "maxRequestsPerSecond": 2
-    }
-  ],
   "packageRules": [
     {
       "matchUpdateTypes": [
@@ -74,10 +66,8 @@
         "org.apache.maven.plugins:maven-gpg-plugin",
         "org.apache.maven.plugins:maven-enforcer-plugin",
         "org.apache.maven.plugins:maven-deploy-plugin",
-        "org.jreleaser:jreleaser-maven-plugin"
-      ],
-      "matchPackagePatterns": [
-        "^org\\.apache\\.maven\\.plugins:"
+        "org.jreleaser:jreleaser-maven-plugin",
+        "/^org\\.apache\\.maven\\.plugins:/"
       ]
     },
     {
