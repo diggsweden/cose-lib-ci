@@ -5,45 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.0-SNAPSHOT] - 2025-03-12
+## [2.0.0-SNAPSHOT] - 2025-03-21
 
 ### Added
 
-- Add central publishing with jreleaser
-- Add artifact prebuild
-- Add test of mvn central snapshot publ
 - Add test, sec scorecard,dep-check, licenselint
 
 ### Changed
 
-- Refactor broken jreleaser
-- Change to deploy phase
-- Pin shas
-- Correct license et
-- Reformat and adjust for google-style-java format
-- Update step-security/harden-runner action to v2.11.0 (#11)
-- Fetch whole history, only allow SNAPSHOT
-- Update maven build plugins (#8)
-- Update bouncy castle to v1.80 (#7)
-- Update actions/setup-java action to v4.7.0 (#4)
-- Replace deprecated methods
-- Cleanup linter warnings
-- Update dependency org.jacoco:jacoco-maven-plugin to v0.8.12
 - Migrate config renovate.json
-- Correct lib name
+- Pin shas
+- Reformat google-style-java format,fix license
+- Cleanup linter warnings
 - Migrate namespace etc
 - Declare reuse/spdx license
 
 ### Fixed
 
-- Fix git-cliff conf
-- Fix checkstyle warnings
 - Fix RSA key tagging
-
-### Removed
-
-- Remove unneeded conf
-
 
 ## [1.2.1-release-tag] - 2025-01-18
 
