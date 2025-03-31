@@ -41,11 +41,33 @@ jobs:
           path: .github-templates
           ref: main
           
-      - name: Generate Releasenotes
+      - name: Get latest tag
+        id: get-latest-tag
+        run: |
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          echo "LATEST_TAG=${LATEST_TAG}" >> "$GITHUB_OUTPUT"
+          if [[ "${LATEST_TAG}" == *-SNAPSHOT ]]; then
+            echo "IS_SNAPSHOT=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "IS_SNAPSHOT=false" >> "$GITHUB_OUTPUT"
+          fi
+          
+      - name: Generate Releasenotes (non-SNAPSHOT)
+        if: steps.get-latest-tag.outputs.IS_SNAPSHOT == 'false'
         uses: orhun/git-cliff-action@4a4a951bc43fafe41cd2348d181853f52356bee7 # v4.4.2
         with:
           config: .github-templates/gitcliff-templates/default.toml
-          args: --latest
+          args: --latest --ignore-tags '.*SNAPSHOT|early-access'
+        env:
+          OUTPUT: ReleasenotesTmp
+          GITHUB_REPO: ${{ github.repository }}
+          
+      - name: Generate Releasenotes (SNAPSHOT)
+        if: steps.get-latest-tag.outputs.IS_SNAPSHOT == 'true'
+        uses: orhun/git-cliff-action@4a4a951bc43fafe41cd2348d181853f52356bee7 # v4.4.2
+        with:
+          config: .github-templates/gitcliff-templates/default.toml
+          args: --latest --ignore-tags 'early-access'
         env:
           OUTPUT: ReleasenotesTmp
           GITHUB_REPO: ${{ github.repository }}
@@ -79,4 +101,4 @@ jobs:
           name: jreleaser-logs
           path: |
             target/jreleaser/trace.log
-            target/jreleaser/output.properties           
+            target/jreleaser/output.properties
