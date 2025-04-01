@@ -108,7 +108,7 @@
         <artifactId>formatter-maven-plugin</artifactId>
         <version>${formatter-maven-plugin.version}</version>
         <configuration>
-          <configFile>${project.basedir}/development/formatting/eclipse-java-google-style.xml</configFile>
+          <configFile>${project.basedir}/development/format/eclipse-java-google-style.xml</configFile>
           <lineEnding>LF</lineEnding>
           <compilerSource>${java.version}</compilerSource>
           <compilerCompliance>${java.version}</compilerCompliance>
@@ -136,7 +136,7 @@
           </dependency>
         </dependencies>
         <configuration>
-          <configLocation>${project.basedir}/development/checkstyle/google_checks.xml</configLocation>
+          <configLocation>${project.basedir}/development/lint/google_checks.xml</configLocation>
           <consoleOutput>true</consoleOutput>
           <failsOnError>true</failsOnError>
           <linkXRef>false</linkXRef>

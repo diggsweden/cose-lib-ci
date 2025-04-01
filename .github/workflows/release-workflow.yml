@@ -1,6 +1,33 @@
 # SPDX-FileCopyrightText: 2025 Digg - Agency for Digital Government
 #
 # SPDX-License-Identifier: CC0-1.0
+
+# Release Workflow
+# 
+# Purpose: This workflow controls the release process for tagged versions, ensuring that
+# only authorized developers can create production releases while allowing anyone to
+# create SNAPSHOT releases.
+#
+# How it works:
+# 1. Triggers automatically when a tag matching semver format (vX.Y.Z) is pushed
+# 2. Checks if the tag is a SNAPSHOT release or a production release
+# 3. For production releases, verifies the user is in the authorized developers list
+# 4. Updates version numbers in pom.xml and updates the changelog
+# 5. Calls the release-lib workflow to perform the actual release process
+#
+# Security controls:
+# - Non-SNAPSHOT releases require authorization via the AUTHORIZED_RELEASE_DEVELOPERS secret
+# - SNAPSHOT releases can be created by any contributor that has tag push access to the repository
+# - Unauthorized release attempts will fail with a clear error message
+#
+# Required Secrets:
+#   AUTHORIZED_RELEASE_DEVELOPERS: Comma-separated list of GitHub usernames allowed to create 
+#                                  production releases
+#
+# Uses:
+#   - diggsweden/.github/.github/workflows/version-bump-changelog.yml: Updates version numbers and changelog
+#   - ./.github/workflows/release-lib.yml: Performs the actual release process
+#
 name: Release Workflow
 on:
   push:

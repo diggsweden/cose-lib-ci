@@ -1,6 +1,37 @@
 # SPDX-FileCopyrightText: 2025 Digg - Agency for Digital Government
 #
 # SPDX-License-Identifier: CC0-1.0
+
+# Release Lib Workflow
+# 
+# Purpose: This workflow automates the release process for libraries. It handles building,
+# testing, signing, and publishing to both Maven Central and GitHub Packages.
+#
+# How it works:
+# 1. Checks out the main branch and sets up Java
+# 2. Identifies the latest tag to determine if this is a SNAPSHOT release
+# 3. Generates appropriate release notes based on commit history since the last tag
+# 4. Imports the GPG key for signing artifacts
+# 5. Deploys artifacts to Maven Central using the configured credentials
+# 6. Creates a GitHub release with the generated release notes
+# 7. Uploads logs for debugging purposes
+#
+# Environment Variables:
+#   MAVEN_CLI_OPTS: Common Maven CLI options that control build behavior:
+#     - Enables batch mode for CI environments
+#     - Disables progress indicators for cleaner logs
+#     - Fails at end to collect all errors before stopping
+#     - Enables colored output for better readability
+#     - Configures installation and deployment to happen at the end of the build
+# 
+# Required Secrets:
+#   OSPO_BOT_GPG_PRIV: GPG private key used for signing the artifacts
+#   OSPO_BOT_GPG_PASS: Passphrase for the GPG private key
+#   OSPO_BOT_GPG_PUB: GPG public key for verification
+#   MAVENCENTRAL_USERNAME: Username for Maven Central repository
+#   MAVENCENTRAL_PASSWORD: Password for Maven Central repository
+#   RELEASE_TOKEN: GitHub token with permissions to create releases
+#   GITHUB_TOKEN: Default GitHub token for repository operations
 ---
 name: Release Lib
 
