@@ -49,8 +49,5 @@ catalog:
 # Files for checksums and GitHub release
 files:
   artifacts:
-    - path: target/cose-lib-2.0.0-SNAPSHOT.jar
-    # - path: target/cose-lib-2.0.0-SNAPSHOT-sources.jar
-    # - path: target/cose-lib-2.0.0-SNAPSHOT-javadoc.jar
-    # - path: pom.xml
+    - path: target/{{projectName}}-{{projectVersion}}.jar
     
