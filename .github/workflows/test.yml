@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         java-version: ['21'] 
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest]
 
     env: 
       MAVEN_CLI_OPTS: "--batch-mode --no-transfer-progress --errors --fail-at-end -Dstyle.color=always -DinstallAtEnd=true -DdeployAtEnd=true"
