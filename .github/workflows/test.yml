@@ -8,7 +8,7 @@ name: Maven Test
 on: [workflow_call]  # yamllint disable-line rule:truthy
 
 permissions:
-  contents: read
+  contents: read  # Best Security practice. Jobs only get read as base, and then permissions are added as needed
 
 jobs:
   test:
