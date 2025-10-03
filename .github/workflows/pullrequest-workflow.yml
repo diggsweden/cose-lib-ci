@@ -24,7 +24,7 @@ permissions:
 
 jobs:
   pr-checks:
-    uses: diggsweden/.github/.github/workflows/pullrequest-orchestrator.yml@main
+    uses: diggsweden/.github/.github/workflows/pullrequest-orchestrator.yml@feat/ci-refactor
     secrets: inherit  # Pass org-level secrets (for private dependencies if any)
     permissions:
       contents: read         # Clone repository and read source code
