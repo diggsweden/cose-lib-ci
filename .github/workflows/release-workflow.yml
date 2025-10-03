@@ -20,10 +20,12 @@ jobs:
   release:
     uses: diggsweden/.github/.github/workflows/release-orchestrator.yml@feat/ci-refactor
     permissions:
-      contents: write   # Create GitHub releases and tags
-      packages: write   # Publish to GitHub Packages (backup)
-      id-token: write   # Generate OIDC token for Maven Central
-      issues: write     # Close milestone and update issues with release info
+      contents: write         # Create GitHub releases and tags
+      packages: write         # Publish to GitHub Packages (backup)
+      id-token: write        # Generate OIDC token for Maven Central
+      actions: read          # Needed by container job (even if skipped)
+      attestations: write    # Needed by container job (even if skipped)
+      security-events: write # Needed by container job (even if skipped)
     secrets: inherit  # Use org-level MAVEN_CENTRAL credentials and GPG keys
     with:
       # Project configuration
