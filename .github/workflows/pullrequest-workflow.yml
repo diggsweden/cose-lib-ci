@@ -6,12 +6,6 @@
 name: Pull Request Workflow
 
 on:
-  push:
-    branches:
-      - main
-      - develop
-      - 'release/**'
-      - 'feature/**'
   pull_request:
     branches:
       - main
