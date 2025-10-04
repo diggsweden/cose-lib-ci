@@ -4,7 +4,7 @@
 [![REUSE](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.reuse.software%2Fstatus%2Fgithub.com%2Fdiggsweden%2Fcose-lib&query=status&style=for-the-badge&label=REUSE)](https://api.reuse.software/info/github.com/diggsweden/cose-lib)
 d
 [![Tag](https://img.shields.io/github/v/tag/diggsweden/cose?style=for-the-badge&color=green)](https://github.com/diggsweden/cose-lib/tags)
-
+dd
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/diggsweden/cose-lib/badge?style=for-the-badge)](https://scorecard.dev/viewer/?uri=github.com/diggsweden/cose-lib)
 
 This project is a Java implementation of the IETF CBOR Encoded Message Syntax (COSE).  
