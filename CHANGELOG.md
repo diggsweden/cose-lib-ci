@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.3-SNAPSHOT] - 2025-10-04
+
+### Changed
+
+- Test snap
+- Test lib flow
+
 ## [0.4.0-SNAPSHOT] - 2025-10-04
 
 ### Changed
@@ -61,6 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix RSA key tagging
 
 
+[2.5.3-SNAPSHOT]: https://github.com/diggsweden/cose-lib-ci/compare/v0.4.0-SNAPSHOT..v2.5.3-SNAPSHOT
 [0.4.0-SNAPSHOT]: https://github.com/diggsweden/cose-lib-ci/compare/v0.3.0-SNAPSHOT..v0.4.0-SNAPSHOT
 [0.3.0-SNAPSHOT]: https://github.com/diggsweden/cose-lib-ci/compare/v0.2.0-SNAPSHOT..v0.3.0-SNAPSHOT
 [0.2.0-SNAPSHOT]: https://github.com/diggsweden/cose-lib-ci/compare/v0.1.0-SNAPSHOT..v0.2.0-SNAPSHOT
